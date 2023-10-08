@@ -1,0 +1,89 @@
+html {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+div {
+  background-color: white;
+  color: black; /* color of label text */
+}
+
+legend {
+  height: 0;
+  max-width: 0.01px;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+  transition: max-width 0.2s ease-in-out;
+  font-size: 0.4rem; /* This is the font-size for the invisible span that goes where the real label does, use this to decrease and increase the size of the outline gap, keep in mind that when the real label is here, it's downsized by half eg: scale(0.5) */
+}
+
+fieldset {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 5px;
+  padding: 0px 5px; /* This also affects the outline gap size */
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid black;
+  font-size: 0.8rem; /* Global Font Size */
+  background-color: transparent; /* This combined with the input bg color makes the entire textbox color */
+}
+
+legend span { /* Fake label to create the legend gap in the fieldset's border */
+  padding: 0px 0px;
+  margin: 0;
+  visibility: hidden;
+  opacity: 0;
+  width: fit-content;
+}
+
+label { /* This is the real label eg: Password */
+  position: absolute;
+  left: 0; /* You can add to this to shift the label on it's X-Axis but be aware that you'll have to adjust the transition for it's new position */
+  pointer-events: none;
+  transform-origin: left top 0px;
+  transition: all 0.2s ease-in-out;
+  z-index: 1;
+}
+
+input {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: fit-content;
+  width: 6rem;
+  border: none;
+  background-color: transparent; /* This combined with the fieldset bg color makes the entire textbox color */
+  z-index: 0;
+  color: black; /* color of input text */
+}
+
+input:focus {
+  outline: none;
+}
+
+input:focus + legend + label {
+  transform: translate(0.3rem, -0.5rem) scale(0.5);
+}
+
+input:not(:placeholder-shown) + legend + label {
+  transform: translate(0.3rem, -0.5rem) scale(0.5);
+}
+
+input:not(:placeholder-shown) + legend {
+  max-width: 100%;
+}
+
+input:focus + legend {
+  max-width: 100%;
+}
+
+#inputOverride {
+  width: 10rem; /* use this to override the default sizing */
+  height: 1.5rem;
+}
